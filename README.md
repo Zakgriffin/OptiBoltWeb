@@ -1,5 +1,7 @@
 OptiBolt Ported For The Web
 
+Written With TypeScript, OpenCV.js, and React
+
 Usage:
 
 `yarn` - Install dependencies

@@ -1,16 +1,16 @@
 // Main file handling image capture and overall procedure
-import dp from './display'
+import * as dp from './display'
+import * as other from './other'
 import {minSize} from './constants'
+import {getThreadCount, getLength, getDiameter} from './screwInfo'
+import {cleanPoints} from './cleaner'
 
 import {Point} from './types'
 
-//from screwInfo import getThreadCount, getLength, getDiameter
-//from constants import pixelsPerInch, minSize
-//from cleaner import cleanPoints
-
-//cv2.createTrackbar("thresh", "Frame", 80, 255, lambda _: None) // trackbar for threshhold
-
 export default function optiBolt(cv: any, frame: any) {
+    dp.setCV(cv)
+    other.setCV(cv)
+
     let thresh = 80
 
     let dst = cv.Mat.zeros(frame.rows, frame.cols, cv.CV_8UC3)
@@ -70,25 +70,25 @@ export default function optiBolt(cv: any, frame: any) {
     }
     
     dp.setFrame(frame) // set frame for use in display
-    for screw of screws {
+    for(let screw of screws) {
         // clean up points: rotate to flat, remove head, split into top and bottom lists
-        [tops, bottoms, invalid] = cleanPoints(screw, frame)
+        let [tops, bottoms] = cleanPoints(screw, frame)
 
-        if(invalid) continue // invalid screw after cleaning
+        if(!tops || !bottoms) continue // invalid screw after cleaning
 
         // grab screw info
-        length = getLength(tops, bottoms)
-        diameter = getDiameter(tops, bottoms)
-        threadCount, points = getThreadCount(tops, bottoms)
+        let length = getLength(tops, bottoms)
+        let diameter = getDiameter(tops, bottoms)
+        let threadCount = getThreadCount(tops, bottoms)
 
-        dp.setBox(screw['box']) // set box dimensions for use in display
+        dp.setBox(screw.box) // set box dimensions for use in display
 
         dp.outline() // outline the screw with rounded box
-        allInfo = True
-        if allInfo:
+        let allInfo = true
+        if(allInfo) {
             // label all measurment info for screw
             dp.labelAllInfo(length, diameter, threadCount)
-        else {
+        } else {
             // use color indicators for easy human sorting
             dp.quickColorInfo(length, diameter, threadCount)
         }
@@ -100,7 +100,7 @@ export default function optiBolt(cv: any, frame: any) {
     }
 
     // display final image
-    cv.imshow('canvasOutput', dst)
+    cv.imshow('canvasOutput', frame)
     frame.delete(); dst.delete(); contours.delete(); hierarchy.delete()
 }
 // when exited, release the capture

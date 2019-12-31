@@ -32,7 +32,7 @@ function getThreadCount(tops: ScrewHalf, bottoms: ScrewHalf): number {
         let peaks = 0
         for(let p of half) {
             let height = p.y // get y coord of p
-            if(heading && (height - peakTolerance > amp) || (!heading && (height + peakTolerance < amp))) {
+            if((heading && (height - peakTolerance > amp)) || ((!heading && (height + peakTolerance < amp)))) {
                 // reached either a peak or valley
                 if(heading) {
                     peaks++

@@ -1,48 +1,52 @@
-export default null
-/*
-# Utility functions
+// Utility functions
+import { Point, Mat } from "./types"
 
-import cv2
+let cv: any
+export function setCV(c: any) {cv = c}
 
-def roundRect(frame, topLeft, bottomRight, lineColor, thickness, lineType, cornerRadius):
-    # Draws a rect with rounded corners
-    """
+export function roundRect(frame: Mat, topLeft: Point, bottomRight: Point, lineColor: any,
+        thickness: number, lineType: any, cornerRadius: number) {
+    // Draws a rect with rounded corners
+    /*
     corners:
     p1 - p2
     |     |
     p4 - p3
-    """
-    (tlx, tly) = topLeft
-    (brx, bry) = bottomRight
+    */
+    let tlx = topLeft.x
+    let tly = topLeft.y
+    let brx = bottomRight.x
+    let bry = bottomRight.y
 
+    let p1 = {x: tlx, y: tly}
+    let p2 = {x: brx, y: tly}
+    let p3 = {x: brx, y: bry}
+    let p4 = {x: tlx, y: bry}
 
-    p1 = [tlx, tly]
-    p2 = [brx, tly]
-    p3 = [brx, bry]
-    p4 = [tlx, bry]
+    // draw straight lines
+    cv.line(frame, {x: p1.x + cornerRadius, y: p1.y}, {x: p2.x - cornerRadius, y: p2.y}, lineColor, thickness, lineType)
+    cv.line(frame, {x: p2.x, y: p2.y + cornerRadius}, {x: p3.x, y: p3.y - cornerRadius}, lineColor, thickness, lineType)
+    cv.line(frame, {x: p4.x + cornerRadius, y: p4.y}, {x: p3.x - cornerRadius, y: p3.y}, lineColor, thickness, lineType)
+    cv.line(frame, {x: p1.x, y: p1.y + cornerRadius}, {x: p4.x, y: p4.y - cornerRadius}, lineColor, thickness, lineType)
 
-    # draw straight lines
-    cv2.line(frame, (p1[0] + cornerRadius,p1[1]), (p2[0] - cornerRadius,p2[1]), lineColor, thickness, lineType)
-    cv2.line(frame, (p2[0],p2[1] + cornerRadius), (p3[0],p3[1] - cornerRadius), lineColor, thickness, lineType)
-    cv2.line(frame, (p4[0] + cornerRadius,p4[1]), (p3[0] - cornerRadius,p3[1]), lineColor, thickness, lineType)
-    cv2.line(frame, (p1[0],p1[1] + cornerRadius), (p4[0],p4[1] - cornerRadius), lineColor, thickness, lineType)
+    // draw arcs
+    cv.ellipse(frame, {x: p1.x + cornerRadius, y: p1.y + cornerRadius}, {x: cornerRadius, y: cornerRadius}, 180, 0, 90, lineColor, thickness, lineType)
+    cv.ellipse(frame, {x: p2.x - cornerRadius, y: p2.y + cornerRadius}, {x: cornerRadius, y: cornerRadius}, 270, 0, 90, lineColor, thickness, lineType)
+    cv.ellipse(frame, {x: p3.x - cornerRadius, y: p3.y - cornerRadius}, {x: cornerRadius, y: cornerRadius}, 0.0, 0, 90, lineColor, thickness, lineType)
+    cv.ellipse(frame, {x: p4.x + cornerRadius, y: p4.y - cornerRadius}, {x: cornerRadius, y: cornerRadius}, 90, 0, 90, lineColor, thickness, lineType)
+}
 
-    # draw arcs
-    cv2.ellipse(frame, (p1[0] + cornerRadius, p1[1] + cornerRadius), (cornerRadius, cornerRadius), 180, 0, 90, lineColor, thickness, lineType)
-    cv2.ellipse(frame, (p2[0] - cornerRadius, p2[1] + cornerRadius), (cornerRadius, cornerRadius), 270, 0, 90, lineColor, thickness, lineType)
-    cv2.ellipse(frame, (p3[0] - cornerRadius, p3[1] - cornerRadius), (cornerRadius, cornerRadius), 0.0, 0, 90, lineColor, thickness, lineType)
-    cv2.ellipse(frame, (p4[0] + cornerRadius, p4[1] - cornerRadius), (cornerRadius, cornerRadius), 90, 0, 90, lineColor, thickness, lineType)
-
-def imperialFrac(x, largest_denominator=32):
-    # Converts decimal into 3 part tuple for fractional imperial measurement
-    if x < 0:
-        pass
-        #raise ValueError("x must be >= 0")
-    scaled = int(round(x * largest_denominator))
+export function imperialFrac(x: number, largest_denominator: number = 32) {
+    // Converts decimal into 3 part tuple for fractional imperial measurement
+    if(x < 0) throw new Error("x must be >= 0")
+    /*
+    let whole = parseInt
     whole, leftover = divmod(scaled, largest_denominator)
     if leftover:
         while leftover % 2 == 0:
             leftover >>= 1
             largest_denominator >>= 1
     return whole, leftover, largest_denominator
-*/
+    */
+   return {whole: x, num: 0, den: 0}
+}
