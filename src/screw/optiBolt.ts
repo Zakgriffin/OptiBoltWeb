@@ -43,7 +43,7 @@ export default function optiBolt(cv: any, src: any) {
         cv.drawContours(dst, contours, i, color, 1, cv.LINE_8, hierarchy, 100);
     }
 
-    let points = []
+    //let points = []
     //for(let i = 0; i < )
 
     cv.imshow('canvasOutput', dst);

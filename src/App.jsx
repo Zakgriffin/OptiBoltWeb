@@ -29,7 +29,7 @@ export default function WebcamCapture() {
             cap.read(frame)
         
             //let newFrame = new cv.Mat()
-            let newFrame = optiBolt(cv, frame)
+            /*let newFrame = */optiBolt(cv, frame)
             
             //cv.cvtColor(frame, newFrame, cv.COLOR_RGBA2GRAY, 0)
             //cv.imshow(canvasRef.current, newFrame)
