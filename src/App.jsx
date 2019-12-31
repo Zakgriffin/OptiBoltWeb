@@ -36,7 +36,7 @@ export default function WebcamCapture() {
 
             //frame.delete()
             //newFrame.delete()
-        }, 1)
+        }, 100)
     }, [loaded])
   
     return <>
