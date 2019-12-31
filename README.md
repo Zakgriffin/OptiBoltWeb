@@ -4,4 +4,4 @@ Usage:
 
 `yarn` - Install dependencies
 
-`yarn start` - Sart React App
+`yarn start` - Start React App
