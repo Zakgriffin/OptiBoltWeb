@@ -1,14 +1,9 @@
-export default null
-
-/*
 // Constants used for various purposes
-
 const pixelsPerInch = 144 // pixels per inch
 const minSize = 0.3 * pixelsPerInch // minimum area a "screw" can be without being ignored
 const screwHeadTolerance = 0.05 * pixelsPerInch // tolerance for discounting screw head points
 const peakTolerance = 0.7 // tolerance for discounting noise in peak recognition
-
-
+/*
 // Identifiable Screw Measurements [for estimating and color indicators]
 const screwLengths = {
     3/8: [0, 0, 255], // tiny boi -> red
@@ -30,3 +25,4 @@ const screwThreads = {
     19: [255, 255, 0] // absolute lad - > cyan
 }
 */
+export {pixelsPerInch, minSize, screwHeadTolerance, peakTolerance}

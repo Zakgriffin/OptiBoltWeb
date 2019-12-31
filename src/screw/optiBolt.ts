@@ -1,11 +1,8 @@
 // Main file handling image capture and overall procedure
 import dp from './display'
+import {minSize} from './constants'
 
-const pixelsPerInch = 144 // pixels per inch
-const minSize = 0.3 * pixelsPerInch // minimum area a "screw" can be without being ignored
-//const screwHeadTolerance = 0.05 * pixelsPerInch // tolerance for discounting screw head points
-//const peakTolerance = 0.7 // tolerance for discounting noise in peak recognition
-//import dp from './display'
+import {Point} from './types'
 
 //from screwInfo import getThreadCount, getLength, getDiameter
 //from constants import pixelsPerInch, minSize
@@ -59,7 +56,7 @@ export default function optiBolt(cv: any, frame: any) {
         if(wB * hB < minSize) continue // too small to be valid screw
 
         // restructure points into list of length 2 lists (points)
-        let points: {x: number, y: number}[] = []
+        let points: Point[] = []
         for(let j = 0; j < ctr.rows; j++) {
             points.push({
                 x: ctr.data32S[j*2],
