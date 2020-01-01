@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/OptiBoltWeb/static/css/main.76918977.chunk.css",
+    "main.js": "/OptiBoltWeb/static/js/main.bb419a3e.chunk.js",
+    "main.js.map": "/OptiBoltWeb/static/js/main.bb419a3e.chunk.js.map",
+    "runtime-main.js": "/OptiBoltWeb/static/js/runtime-main.35c0e7f0.js",
+    "runtime-main.js.map": "/OptiBoltWeb/static/js/runtime-main.35c0e7f0.js.map",
+    "static/js/2.39f6eddd.chunk.js": "/OptiBoltWeb/static/js/2.39f6eddd.chunk.js",
+    "static/js/2.39f6eddd.chunk.js.map": "/OptiBoltWeb/static/js/2.39f6eddd.chunk.js.map",
+    "index.html": "/OptiBoltWeb/index.html",
+    "precache-manifest.c88befc8ec2c9d6cf4b2c8ba46dab1ba.js": "/OptiBoltWeb/precache-manifest.c88befc8ec2c9d6cf4b2c8ba46dab1ba.js",
+    "service-worker.js": "/OptiBoltWeb/service-worker.js",
+    "static/css/main.76918977.chunk.css.map": "/OptiBoltWeb/static/css/main.76918977.chunk.css.map",
+    "static/js/2.39f6eddd.chunk.js.LICENSE": "/OptiBoltWeb/static/js/2.39f6eddd.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.35c0e7f0.js",
+    "static/js/2.39f6eddd.chunk.js",
+    "static/css/main.76918977.chunk.css",
+    "static/js/main.bb419a3e.chunk.js"
+  ]
+}
