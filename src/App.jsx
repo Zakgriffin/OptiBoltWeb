@@ -11,8 +11,10 @@ const v = {
 }
 
 const w = {
-    width: 750,
-    height: 540
+    //width: 750,
+    //height: 540
+    width: 1000,
+    height: 720
 }
 
 export default function WebcamCapture() {

@@ -5,14 +5,12 @@ interface IProps {
 }
 
 export default function Screw(props: IProps) {
-    
-    return <>
-        <rect
-            strokeWidth='3'
-            stroke='lime'
-            fill={'none'}
-            rx='15'
-            {...props.screw.box}
-        />
-    </>
+    return <rect
+        strokeWidth='3'
+        stroke='#444'
+        fill={'none'}
+        strokeDasharray='10'
+        rx='15'
+        {...props.screw.box}
+    />
 }
