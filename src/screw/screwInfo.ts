@@ -6,7 +6,7 @@ import {ScrewHalf, Point} from './types'
 function getLength(tops: ScrewHalf, bottoms: ScrewHalf) {
     // Returns estimated length of screw
     function length(half: ScrewHalf) {
-        return half[half.length - 1].x - half[0].y
+        return half[half.length - 1].x - half[0].x
     }
     return ((length(tops) + length(bottoms)) / 2) / pixelsPerInch
 }
@@ -16,8 +16,7 @@ function getDiameter(tops: ScrewHalf, bottoms: ScrewHalf) {
     function averageHeight(half: ScrewHalf) {
         let average = 0
         half.map(p => average += p.y)
-        average /= half.length
-        return average
+        return average / half.length
     }
     return (averageHeight(tops) + averageHeight(bottoms)) / pixelsPerInch
 }
@@ -48,7 +47,7 @@ function getThreadCount(tops: ScrewHalf, bottoms: ScrewHalf): number {
     }
     let t = thread(tops)
     let b = thread(bottoms)
-    return (t + b) / 2
+    return Math.round((t + b) / 2)
 }
 
 export {getLength, getDiameter, getThreadCount}

@@ -1,6 +1,5 @@
 // Functions for displaying retrieved measurements in a human readable way
 
-import {roundRect, imperialFrac} from './other'
 import {screwLengths, screwDiameters, screwThreads} from './constants'
 import {Mat, Box, ScrewDimensions, Point, ScrewPresetList} from './types'
 
@@ -35,8 +34,8 @@ export function labelMeasure(dimensions: ScrewDimensions, descriptor = '',
     let {x, y} = coord
 
     cv.putText(frame, whole + ' in', {x, y}, cv.FONT_HERSHEY_SIMPLEX, 1, color, 1) // whole
-    cv.putText(frame, num, {x: x + 20, y}, cv.FONT_HERSHEY_SIMPLEX, 0.4, color, 1) // numerator
-    cv.putText(frame, den, {x: x + 20, y}, cv.FONT_HERSHEY_SIMPLEX, 0.4, color, 1) // denominator
+    cv.putText(frame, num.toString(), {x: x + 20, y: y - 15}, cv.FONT_HERSHEY_SIMPLEX, 0.4, color, 1) // numerator
+    cv.putText(frame, den.toString(), {x: x + 20, y}, cv.FONT_HERSHEY_SIMPLEX, 0.4, color, 1) // denominator
     cv.putText(frame, descriptor, {x: x + 65, y}, cv.FONT_HERSHEY_SIMPLEX, 0.3, color, 1) // descriptor
 
     cv.line(frame, {x: x + 20, y: y - 12}, {x: x + 35, y: y - 12}, color, 1) // fraction bar
@@ -59,7 +58,7 @@ export function outline() {
 
 export function labelAllInfo(length: number, diameter: number, thread: number) {
     // Labels all information about a screw (length, diameter, thread) on frame
-    labelMeasure(imperialFrac(length), 'Length', {x: xB + wB + 15, y: yB})
+    //labelMeasure(imperialFrac(length), 'Length', {x: xB + wB + 15, y: yB})
     labelMeasure(imperialFrac(diameter), 'Diam', {x: xB + wB + 15, y: yB + 35})
     labelMeasureSimple(thread.toString(), 'Threads', {x: xB + wB + 15, y: yB + 70},
         new cv.Scalar(255, 255, 255))
@@ -88,4 +87,53 @@ export function quickColorInfo(length: number, diameter: number, thread: number)
 
     cv.rectangle(frame, {x: xI - iSize, y: yI - 3 * iSize},
         {x: xI + iSize, y: yI + 3 * iSize}, new cv.Scalar(255, 255, 255), 1)
+}
+
+function roundRect(frame: Mat, topLeft: Point, bottomRight: Point, lineColor: any,
+        thickness: number, lineType: any, cornerRadius: number) {
+    // Draws a rect with rounded corners
+    /*
+    corners:
+    p1 - p2
+    |     |
+    p4 - p3
+    */
+    let tlx = topLeft.x
+    let tly = topLeft.y
+    let brx = bottomRight.x
+    let bry = bottomRight.y
+
+    let p1 = {x: tlx, y: tly}
+    let p2 = {x: brx, y: tly}
+    let p3 = {x: brx, y: bry}
+    let p4 = {x: tlx, y: bry}
+
+    // draw straight lines
+    cv.line(frame, {x: p1.x + cornerRadius, y: p1.y}, {x: p2.x - cornerRadius, y: p2.y}, lineColor, thickness, lineType)
+    cv.line(frame, {x: p2.x, y: p2.y + cornerRadius}, {x: p3.x, y: p3.y - cornerRadius}, lineColor, thickness, lineType)
+    cv.line(frame, {x: p4.x + cornerRadius, y: p4.y}, {x: p3.x - cornerRadius, y: p3.y}, lineColor, thickness, lineType)
+    cv.line(frame, {x: p1.x, y: p1.y + cornerRadius}, {x: p4.x, y: p4.y - cornerRadius}, lineColor, thickness, lineType)
+
+    // draw arcs
+    //cv.ellipse(frame, {x: p1.x + cornerRadius, y: p1.y + cornerRadius}, {x: cornerRadius, y: cornerRadius}, 180, 0, 90, lineColor, thickness, lineType)
+    //cv.ellipse(frame, {x: p2.x - cornerRadius, y: p2.y + cornerRadius}, {x: cornerRadius, y: cornerRadius}, 270, 0, 90, lineColor, thickness, lineType)
+    //cv.ellipse(frame, {x: p3.x - cornerRadius, y: p3.y - cornerRadius}, {x: cornerRadius, y: cornerRadius}, 0.0, 0, 90, lineColor, thickness, lineType)
+    //cv.ellipse(frame, {x: p4.x + cornerRadius, y: p4.y - cornerRadius}, {x: cornerRadius, y: cornerRadius}, 90, 0, 90, lineColor, thickness, lineType)
+    // DEBUG ^
+}
+
+function imperialFrac(x: number, max: number = 32) {
+    // Converts decimal into 3 part tuple for fractional imperial measurement
+    if(x < 0) return {whole: 0, num: 0, den: 1}//throw new Error('x must be >= 0')
+    
+    let whole = Math.floor(x)
+    let left = x - whole
+    let den = 2
+
+    while(Math.abs(Math.round(left * den) - left * den) > 0.1 && den !== max) {
+        den *= 2
+    }
+    let num = Math.round(left * den)
+
+    return {whole, num, den}
 }

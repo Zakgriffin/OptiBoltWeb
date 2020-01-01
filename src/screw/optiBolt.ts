@@ -1,16 +1,13 @@
 // Main file handling image capture and overall procedure
 import * as dp from './display'
-import * as other from './other'
 import {minSize} from './constants'
 import {getThreadCount, getLength, getDiameter} from './screwInfo'
-import {cleanPoints, setCV} from './cleaner'
+import {cleanPoints} from './cleaner'
 
 import {Point, Mat, Box} from './types'
 
 export default function optiBolt(cv: any, frame: Mat) {
     dp.setCV(cv)
-    other.setCV(cv)
-    setCV(cv) // cleaner DEBUG
 
     let thresh = 80
 
@@ -52,18 +49,18 @@ export default function optiBolt(cv: any, frame: Mat) {
         screws.push({points, box, line})
     }
     
-    dp.setFrame(mask) // set frame for use in display
+    dp.setFrame(frame) // set frame for use in display
     for(let screw of screws) {
         // clean up points: rotate to flat, remove head, split into top and bottom lists
         let [tops, bottoms] = cleanPoints(screw, frame)
 
         if(!tops || !bottoms) continue // invalid screw after cleaning
 
-        for(let p of bottoms) {
+        for(let p of tops) {
             let color = new cv.Scalar(255, 0, 0)
             cv.circle(frame, {x: p.x + screw.box.x, y: p.y + screw.box.y}, 0, color, 0)
         }
-        /*
+
         // grab screw info
         let length = getLength(tops, bottoms)
         let diameter = getDiameter(tops, bottoms)
@@ -80,7 +77,6 @@ export default function optiBolt(cv: any, frame: Mat) {
             // use color indicators for easy human sorting
             dp.quickColorInfo(length, diameter, threadCount)
         }
-        */
     }
 
     // display final image
