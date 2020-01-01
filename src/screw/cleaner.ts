@@ -2,6 +2,9 @@
 import {screwHeadTolerance} from './constants'
 import {Mat, Screw, Point, ScrewHalf} from './types'
 
+let cv: any
+export function setCV(c: any) {cv = c}
+
 export function cleanPoints(screw: Screw, frame: Mat): [ScrewHalf | null, ScrewHalf | null] {
     // Function Outline:
     // 1. Rotate all points of screw by opposite the angle of line of best fit (rotate points to have screw laying horizontally)
@@ -11,13 +14,13 @@ export function cleanPoints(screw: Screw, frame: Mat): [ScrewHalf | null, ScrewH
     // 5. Find extraneous points to remove head of screw
     // 6. Return tuple of cleaned tops and bottoms
 
-    let {dx, dy, x, y} = screw.line // unpack line best fit dy/dx, center at (x, y)
+    let [dx, dy, x, y] = screw.line.data32F // unpack line best fit dy/dx, center at (x, y)
     let A = Math.atan2(dy, dx) // rotate all points by this angle
 
     //cv2.line(frame, (x, y), (20 * Math.cos(A) + x, 20 * Math.sin(A) + y), (255, 0, 255), 2) // DEBUG
     //cv2.circle(frame, (x, y), 3, (0, 0, 255), -1) // DEBUG
 
-    let flatPoints: Point[] = []
+    let flatPoints: ScrewHalf = []
     // 1. Rotate all points of screw by opposite the angle of line of best fit
     for(let point of screw.points) {
         // coords relative to center of screw at (x, y)
@@ -33,6 +36,9 @@ export function cleanPoints(screw: Screw, frame: Mat): [ScrewHalf | null, ScrewH
 
         flatPoints.push({x: xNew, y: yNew}) // add to list
     }
+    
+    return [flatPoints, flatPoints]
+
     // 2. Assign each point to tops or bottoms lists, splitting screw in half
     let tops: ScrewHalf = []
     let bottoms: ScrewHalf = []

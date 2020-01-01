@@ -41,6 +41,7 @@ export default function WebcamCapture() {
   
     return <>
         <canvas ref={canvasRef} id='canvasOutput'/>
+        <canvas  id='canvasOutput2'/>
         <Webcam id='video'
             audio={false}
             height={720}

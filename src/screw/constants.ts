@@ -9,7 +9,7 @@ export const screwLengths = {
     [3/8]: [0, 0, 255], // tiny boi -> red
     [5/8]: [0, 255, 0], // normal boi -> green
     [3/4]: [255, 0, 0], // funky boi -> blue
-    1: [255, 0, 255], // smol wood boi -> purple
+    [1/1]: [255, 0, 255], // smol wood boi -> purple
     [2 + 1/4]: [255, 255, 0] // absolute lad - > cyan
 } 
 

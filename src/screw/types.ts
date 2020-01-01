@@ -8,10 +8,10 @@ export type ScrewHalf = Point[]
 export type Mat = any
 
 export interface Box {
-    xB: number
-    yB: number
-    wB: number
-    hB: number
+    x: number
+    y: number
+    width: number
+    height: number
 }
 
 export interface ScrewDimensions {
