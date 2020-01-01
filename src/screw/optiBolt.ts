@@ -4,9 +4,9 @@ import {minSize} from './constants'
 import {getThreadCount, getLength, getDiameter} from './screwInfo'
 import {cleanPoints} from './cleaner'
 
-import {Point, Mat, Box} from './types'
+import {Point, Mat, Box, Screw} from './types'
 
-export default function optiBolt(cv: any, frame: Mat) {
+export default function optiBolt(cv: any, frame: Mat): Screw[] {
     dp.setCV(cv)
 
     let thresh = 80
@@ -52,14 +52,9 @@ export default function optiBolt(cv: any, frame: Mat) {
     dp.setFrame(frame) // set frame for use in display
     for(let screw of screws) {
         // clean up points: rotate to flat, remove head, split into top and bottom lists
-        let [tops, bottoms] = cleanPoints(screw, frame)
+        let [tops, bottoms] = cleanPoints(screw)
 
         if(!tops || !bottoms) continue // invalid screw after cleaning
-
-        for(let p of tops) {
-            let color = new cv.Scalar(255, 0, 0)
-            cv.circle(frame, {x: p.x + screw.box.x, y: p.y + screw.box.y}, 0, color, 0)
-        }
 
         // grab screw info
         let length = getLength(tops, bottoms)
@@ -79,6 +74,8 @@ export default function optiBolt(cv: any, frame: Mat) {
         }
     }
 
+    cv.circle(frame, {x: 1000, y: 100}, 10, new cv.Scalar(255, 0, 0), cv.FILLED)
+
     // display final image
     cv.imshow('canvasOutput', frame)
     cv.imshow('canvasOutput2', mask)
@@ -87,6 +84,9 @@ export default function optiBolt(cv: any, frame: Mat) {
     mask.delete()
     contours.delete()
     hierarchy.delete()
+
+
+    return screws
 }
 // when exited, release the capture
 //cap.release()
