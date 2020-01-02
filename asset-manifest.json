@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/OptiBoltWeb/static/css/main.76918977.chunk.css",
-    "main.js": "/OptiBoltWeb/static/js/main.bb419a3e.chunk.js",
-    "main.js.map": "/OptiBoltWeb/static/js/main.bb419a3e.chunk.js.map",
+    "main.css": "/OptiBoltWeb/static/css/main.459daa25.chunk.css",
+    "main.js": "/OptiBoltWeb/static/js/main.a91cd438.chunk.js",
+    "main.js.map": "/OptiBoltWeb/static/js/main.a91cd438.chunk.js.map",
     "runtime-main.js": "/OptiBoltWeb/static/js/runtime-main.35c0e7f0.js",
     "runtime-main.js.map": "/OptiBoltWeb/static/js/runtime-main.35c0e7f0.js.map",
-    "static/js/2.39f6eddd.chunk.js": "/OptiBoltWeb/static/js/2.39f6eddd.chunk.js",
-    "static/js/2.39f6eddd.chunk.js.map": "/OptiBoltWeb/static/js/2.39f6eddd.chunk.js.map",
+    "static/js/2.a3a6bc95.chunk.js": "/OptiBoltWeb/static/js/2.a3a6bc95.chunk.js",
+    "static/js/2.a3a6bc95.chunk.js.map": "/OptiBoltWeb/static/js/2.a3a6bc95.chunk.js.map",
     "index.html": "/OptiBoltWeb/index.html",
-    "precache-manifest.c88befc8ec2c9d6cf4b2c8ba46dab1ba.js": "/OptiBoltWeb/precache-manifest.c88befc8ec2c9d6cf4b2c8ba46dab1ba.js",
+    "precache-manifest.67319a2528bbfe53cd423b3aed0c3a49.js": "/OptiBoltWeb/precache-manifest.67319a2528bbfe53cd423b3aed0c3a49.js",
     "service-worker.js": "/OptiBoltWeb/service-worker.js",
-    "static/css/main.76918977.chunk.css.map": "/OptiBoltWeb/static/css/main.76918977.chunk.css.map",
-    "static/js/2.39f6eddd.chunk.js.LICENSE": "/OptiBoltWeb/static/js/2.39f6eddd.chunk.js.LICENSE"
+    "static/css/main.459daa25.chunk.css.map": "/OptiBoltWeb/static/css/main.459daa25.chunk.css.map",
+    "static/js/2.a3a6bc95.chunk.js.LICENSE": "/OptiBoltWeb/static/js/2.a3a6bc95.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.35c0e7f0.js",
-    "static/js/2.39f6eddd.chunk.js",
-    "static/css/main.76918977.chunk.css",
-    "static/js/main.bb419a3e.chunk.js"
+    "static/js/2.a3a6bc95.chunk.js",
+    "static/css/main.459daa25.chunk.css",
+    "static/js/main.a91cd438.chunk.js"
   ]
 }
