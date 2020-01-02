@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3f7b4dbf74e22b8feab1268c738e7f50",
+    "revision": "1e3ff4d16b9f47ae015ae35b4a101186",
     "url": "/OptiBoltWeb/index.html"
   },
   {
-    "revision": "32741e772fb38b8863c7",
+    "revision": "316da77c1c9f60242498",
     "url": "/OptiBoltWeb/static/css/main.459daa25.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/OptiBoltWeb/static/js/2.a3a6bc95.chunk.js.LICENSE"
   },
   {
-    "revision": "32741e772fb38b8863c7",
-    "url": "/OptiBoltWeb/static/js/main.a91cd438.chunk.js"
+    "revision": "316da77c1c9f60242498",
+    "url": "/OptiBoltWeb/static/js/main.c3e53174.chunk.js"
   },
   {
     "revision": "362f2f67c6944b526da9",

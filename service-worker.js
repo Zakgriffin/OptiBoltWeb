@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/OptiBoltWeb/precache-manifest.67319a2528bbfe53cd423b3aed0c3a49.js"
+  "/OptiBoltWeb/precache-manifest.ea68e8e54b511b9ace6bd22c6534a36a.js"
 );
 
 self.addEventListener('message', (event) => {
