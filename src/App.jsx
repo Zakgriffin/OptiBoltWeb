@@ -5,16 +5,9 @@ import optiBolt from './screw/optiBolt'
 import Screw from './Screw'
 
 const v = {
-    width: 1000,
-    height: 720,
+    width: window.innerWidth,
+    height: window.innerHeight,
     facingMode: {exact: 'environment'}
-}
-
-const w = {
-    //width: 750,
-    //height: 540
-    width: 1000,
-    height: 720
 }
 
 export default function WebcamCapture() {
@@ -56,15 +49,15 @@ export default function WebcamCapture() {
                 videoConstraints={v}
                 style={{
                     position: 'absolute',
-                    width: w.width,
-                    height: w.height
+                    width: v.width,
+                    height: v.height
                 }}
             />
             <svg viewBox={`0 0 ${v.width} ${v.height}`}
                 style={{
                     position: 'absolute',
-                    width: w.width,
-                    height: w.height
+                    width: v.width,
+                    height: v.height
                 }}
             >
                 {
