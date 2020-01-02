@@ -1,7 +1,7 @@
 // Constants used for various purposes
-export const pixelsPerInch = 144 // pixels per inch
+export const pixelsPerInch = 300 // pixels per inch
 export const minSize = 0.3 * pixelsPerInch // minimum area a "screw" can be without being ignored
-export const screwHeadTolerance = 0.1 * pixelsPerInch // tolerance for discounting screw head points
+export const screwHeadTolerance = 0.06 * pixelsPerInch // tolerance for discounting screw head points
 export const peakTolerance = 0.7 // tolerance for discounting noise in peak recognition
 
 // Identifiable Screw Measurements [for estimating and color indicators]

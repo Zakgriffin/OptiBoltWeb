@@ -1,14 +1,11 @@
 // Main file handling image capture and overall procedure
-import * as dp from './display'
 import {minSize} from './constants'
 import {getThreadCount, getLength, getDiameter} from './screwInfo'
 import {cleanPoints} from './cleaner'
 
-import {Point, Mat, Box, Screw} from './types'
+import {Point, Mat, Box, Screw, FracMeasure} from './types'
 
 export default function optiBolt(cv: any, frame: Mat): Screw[] {
-    dp.setCV(cv)
-
     let thresh = 80
 
     let mask = new cv.Mat()
@@ -19,7 +16,7 @@ export default function optiBolt(cv: any, frame: Mat): Screw[] {
     let hierarchy = new cv.Mat()
     cv.findContours(mask, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE) // grab contours
 
-    let screws = [] //create list of screws found in frame
+    let screws: Screw[] = [] //create list of screws found in frame
     // convert necessary data from contours into screw objects
 
     for(let i = 0; i < contours.size(); i++) {
@@ -49,7 +46,6 @@ export default function optiBolt(cv: any, frame: Mat): Screw[] {
         screws.push({points, box, line})
     }
     
-    dp.setFrame(frame) // set frame for use in display
     for(let screw of screws) {
         // clean up points: rotate to flat, remove head, split into top and bottom lists
         let [tops, bottoms] = cleanPoints(screw)
@@ -57,37 +53,37 @@ export default function optiBolt(cv: any, frame: Mat): Screw[] {
         if(!tops || !bottoms) continue // invalid screw after cleaning
 
         // grab screw info
-        let length = getLength(tops, bottoms)
-        let diameter = getDiameter(tops, bottoms)
+        let length = imperialFrac(getLength(tops, bottoms))
+        let diameter = imperialFrac(getDiameter(tops, bottoms))
         let threadCount = getThreadCount(tops, bottoms)
 
-        dp.setBox(screw.box) // set box dimensions for use in display
-
-        dp.outline() // outline the screw with rounded box
-        let allInfo = true
-        if(allInfo) {
-            // label all measurment info for screw
-            dp.labelAllInfo(length, diameter, threadCount)
-        } else {
-            // use color indicators for easy human sorting
-            dp.quickColorInfo(length, diameter, threadCount)
-        }
+        let thread = threadCount
+        Object.assign(screw, {length, diameter, thread})
     }
-
-    cv.circle(frame, {x: 1000, y: 100}, 10, new cv.Scalar(255, 0, 0), cv.FILLED)
-
-    // display final image
-    cv.imshow('canvasOutput', frame)
-    cv.imshow('canvasOutput2', mask)
 
     frame.delete()
     mask.delete()
     contours.delete()
     hierarchy.delete()
 
-
     return screws
 }
 // when exited, release the capture
 //cap.release()
 //cv.destroyAllWindows()
+
+export function imperialFrac(x: number, max: number = 32): FracMeasure {
+    // Converts decimal into 3 part tuple for fractional imperial measurement
+    if(x < 0) return {whole: 0, num: 0, den: 1}//throw new Error('x must be >= 0')
+    
+    let whole = Math.floor(x)
+    let left = x - whole
+    let den = 2
+
+    while(Math.abs(Math.round(left * den) - left * den) > 0.1 && den !== max) {
+        den *= 2
+    }
+    let num = Math.round(left * den)
+
+    return {whole, num, den}
+}

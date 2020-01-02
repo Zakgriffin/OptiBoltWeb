@@ -14,7 +14,7 @@ export interface Box {
     height: number
 }
 
-export interface ScrewDimensions {
+export interface FracMeasure {
     whole: number
     num: number
     den: number
@@ -28,4 +28,8 @@ export interface Screw {
     points: Point[]
     box: Box
     line: any
+
+    length?: FracMeasure
+    diameter?: FracMeasure
+    thread?: number
 }

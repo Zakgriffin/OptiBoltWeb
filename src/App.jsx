@@ -7,7 +7,7 @@ import Screw from './Screw'
 const v = {
     width: 1000,
     height: 720,
-    facingMode: 'user'
+    facingMode: {exact: 'environment'}
 }
 
 const w = {
@@ -23,7 +23,6 @@ export default function WebcamCapture() {
     const [screws, setScews] = useState()
 
     const webcamRef = useRef()
-    const canvasRef = useRef()
 
     useEffect(() => {
         if(!loaded) return
@@ -75,12 +74,5 @@ export default function WebcamCapture() {
                 }
             </svg>
         </div>
-
-        <canvas id='canvasOutput'
-            ref={canvasRef}
-        />
-        <canvas id='canvasOutput2'
-            hidden
-        />
     </>
 }
